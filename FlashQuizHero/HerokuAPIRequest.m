@@ -33,21 +33,19 @@
                 NSDictionary *dict = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&parsingError];
                 NSLog(@"NSJSONSerialization Dict: %@", dict);
                 
-                FlashCard *flashcard = [[FlashCard alloc]init];
-                
-                NSString *question = [dict valueForKey:@"question"];
-                NSString *answer = [dict valueForKey:@"answer"];
-                
-                // Setup the FlashCard class
-                flashcard.questions = question;
-                flashcard.answers = answer;
-                
-                //Add PhotoObject into the array
-                [arrayOfQuestionsAndAnswers addObject:flashcard];
-
-                
-                NSLog(@"Array: %@", arrayOfQuestionsAndAnswers);
-
+                for (NSDictionary *eachCard in dict) {
+                    FlashCard *flashcard = [[FlashCard alloc]init];
+                    
+                    NSString *question = [eachCard valueForKey:@"question"];
+                    NSString *answer = [eachCard valueForKey:@"answer"];
+                    
+                    // Setup the FlashCard class
+                    flashcard.questions = question;
+                    flashcard.answers = answer;
+                    
+                    //Add PhotoObject into the array
+                    [arrayOfQuestionsAndAnswers addObject:flashcard];
+                }
                 
                 // Send data to the main thread
                 dispatch_async(dispatch_get_main_queue(), ^{

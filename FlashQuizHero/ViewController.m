@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "ResultsViewController.h"
+
 #import "HerokuAPIRequest.h"
 #import "FlashCard.h"
+#import "UniversalAlertView.h"
 
 @interface ViewController () <HerokuDataDownloaderDelegate>
 
@@ -16,10 +19,22 @@
 
 @property (nonatomic, strong) NSMutableArray *flashcardsets;
 
+@property (nonatomic, assign) int currentindex;
+@property (nonatomic, assign) int attempts;
+@property (nonatomic, assign) float currentscore;
+
+@property (nonatomic, weak) IBOutlet UILabel *currentQuestionLabel;
+@property (nonatomic, weak) IBOutlet UITextField *answerTextField;
+@property (nonatomic, weak) IBOutlet UIButton *answerButton;
+
 @end
 
 @implementation ViewController
+
 @synthesize flashcardsets = _flashcardsets;
+@synthesize currentQuestionLabel;
+@synthesize answerTextField;
+@synthesize answerButton;
 
 #pragma mark - View Lifecycle
 - (void)viewDidLoad {
@@ -48,8 +63,81 @@
             [self.flashcardsets addObject:card];
         }
         
+        NSInteger numberOfQuestions = self.flashcardsets.count;
+        
+        // Set current score
+        self.currentscore = 100 / numberOfQuestions;
+        
+        [self SetUpQuestion];
     }
     
-    NSLog(@"%@", self.flashcardsets);
+}
+
+#pragma mark - Quiz Methods
+-(void)SetUpQuestion{
+    
+    if (self.currentindex < self.flashcardsets.count) {
+        FlashCard *currentFlashCard = [self.flashcardsets objectAtIndex:self.currentindex];
+        NSString *currentquestion = currentFlashCard.questions;
+        
+        int questionnumber = self.currentindex + 1;
+        
+        self.currentQuestionLabel.text = [NSString stringWithFormat:@"Question #%d: %@"
+                                          , questionnumber, currentquestion];
+    }
+    else{
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        ResultsViewController *result = [storyboard instantiateViewControllerWithIdentifier:@"IMPhotoDetailsViewController"];
+        [result loadScore:self.currentindex];
+        [self.navigationController pushViewController:result animated:YES];
+    }
+    
+}
+-(void)answerCheck{
+    FlashCard *currentFlashCard = [self.flashcardsets objectAtIndex:self.currentindex];
+    NSString *currentanswer = currentFlashCard.answers;
+    
+    if (![answerTextField.text isEqualToString:currentanswer]) {
+        
+        // Check how many attempts are made. If a wrong answer is given, increment the number of attempts made. If more than three, go to next question.
+        switch (self.attempts) {
+            case 1:
+                self.attempts++;
+                [[UniversalAlertView sharedManager]showAlertViewWithTitle:@"STRIKE 1!" Message:@"That was the wrong answer. Try again."];
+                break;
+            case 2:
+                self.attempts++;
+                [[UniversalAlertView sharedManager]showAlertViewWithTitle:@"STRIKE 2!" Message:@"This is your final chance. Remember. No Pressure."];
+                break;
+            case 3:
+                [self MoveOnToNextQuestion];
+                break;
+            default:
+                break;
+        }
+    }else{
+        
+        // Handle scoring
+        switch (self.attempts) {
+            case 1:
+                self.currentscore = self.currentscore * 1;
+                break;
+            case 2:
+                self.currentscore = self.currentscore * 0.75;
+                break;
+            case 3:
+                self.currentscore = self.currentscore * 0.5;
+                break;
+            default:
+                break;
+        }
+        
+    }
+}
+
+-(void)MoveOnToNextQuestion{
+    self.currentindex++;
+    self.attempts = 1;
+    [self SetUpQuestion];
 }
 @end

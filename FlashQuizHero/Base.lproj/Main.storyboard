@@ -1,9 +1,26 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Rex-NE-4Sp">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="fCf-bQ-oVi">
+            <objects>
+                <navigationController id="Rex-NE-4Sp" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="468-0c-QvI">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="vXZ-lx-hvc" kind="relationship" relationship="rootViewController" id="PA3-Ng-tLQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IoE-W2-Lwb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-54" y="320"/>
+        </scene>
         <!--View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
@@ -16,35 +33,69 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type your answer here, human!" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4uS-vk-qfu">
-                                <rect key="frame" x="16" y="288" width="568" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="53" y="285" width="295" height="30"/>
-                                </variation>
-                            </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What is the question?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCT-OG-dkm">
-                                <rect key="frame" x="100" y="196" width="401" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="53" y="198" width="295" height="21"/>
-                                </variation>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lDx-5O-6xj">
                                 <rect key="frame" x="221" y="326" width="159" height="30"/>
                                 <state key="normal" title="This is my final answer!">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <variation key="widthClass=compact" fixedFrame="YES">
-                                    <rect key="frame" x="121" y="324" width="159" height="30"/>
-                                </variation>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What is the question?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fCT-OG-dkm">
+                                <rect key="frame" x="100" y="196" width="401" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type your answer here, human!" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4uS-vk-qfu">
+                                <rect key="frame" x="16" y="288" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="4uS-vk-qfu" firstAttribute="trailing" secondItem="fCT-OG-dkm" secondAttribute="trailing" id="1dQ-ZV-52Z"/>
+                            <constraint firstItem="4uS-vk-qfu" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="PyC-wt-Ztb"/>
+                            <constraint firstItem="4uS-vk-qfu" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="37" id="Qrc-kd-jxH"/>
+                            <constraint firstItem="4uS-vk-qfu" firstAttribute="centerX" secondItem="lDx-5O-6xj" secondAttribute="centerX" id="kBs-UH-vfe"/>
+                            <constraint firstItem="4uS-vk-qfu" firstAttribute="top" secondItem="fCT-OG-dkm" secondAttribute="bottom" constant="23" id="oDC-8U-A3I"/>
+                            <constraint firstItem="2fi-mo-0CV" firstAttribute="top" secondItem="lDx-5O-6xj" secondAttribute="bottom" constant="246" id="pQ4-Ho-5Hd"/>
+                            <constraint firstItem="lDx-5O-6xj" firstAttribute="top" secondItem="4uS-vk-qfu" secondAttribute="bottom" constant="9" id="td5-Y1-dgU"/>
+                            <constraint firstItem="4uS-vk-qfu" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="w8N-bQ-GhN"/>
+                            <constraint firstItem="4uS-vk-qfu" firstAttribute="leading" secondItem="fCT-OG-dkm" secondAttribute="leading" id="xr0-e3-hoA"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="1dQ-ZV-52Z"/>
+                                <exclude reference="PyC-wt-Ztb"/>
+                                <exclude reference="Qrc-kd-jxH"/>
+                                <exclude reference="kBs-UH-vfe"/>
+                                <exclude reference="oDC-8U-A3I"/>
+                                <exclude reference="w8N-bQ-GhN"/>
+                                <exclude reference="xr0-e3-hoA"/>
+                                <exclude reference="td5-Y1-dgU"/>
+                                <exclude reference="pQ4-Ho-5Hd"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="constraints">
+                                <include reference="1dQ-ZV-52Z"/>
+                                <include reference="PyC-wt-Ztb"/>
+                                <include reference="Qrc-kd-jxH"/>
+                                <include reference="kBs-UH-vfe"/>
+                                <include reference="oDC-8U-A3I"/>
+                                <include reference="w8N-bQ-GhN"/>
+                                <include reference="xr0-e3-hoA"/>
+                                <include reference="td5-Y1-dgU"/>
+                                <include reference="pQ4-Ho-5Hd"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <navigationItem key="navigationItem" id="fGB-mP-cTb"/>
+                    <connections>
+                        <outlet property="answerButton" destination="lDx-5O-6xj" id="PMU-v3-erN"/>
+                        <outlet property="answerTextField" destination="4uS-vk-qfu" id="cJG-Nd-Jb9"/>
+                        <outlet property="currentQuestionLabel" destination="fCT-OG-dkm" id="Q7g-uB-Mvr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>

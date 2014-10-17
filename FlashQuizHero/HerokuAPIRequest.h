@@ -16,7 +16,8 @@
 @property id<HerokuDataDownloaderDelegate>delegate;
     - (void) getQuestionsAndAnswers;
     - (void) getScores;
-    - (void) postScore;
+    -(void)postScore:(float)finalScore;
+
 @end
 
 

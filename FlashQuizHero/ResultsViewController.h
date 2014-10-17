@@ -10,6 +10,6 @@
 
 @interface ResultsViewController : UIViewController
 
-- (void)loadScore:(int) score;
+- (void)loadScore:(float) score;
 
 @end

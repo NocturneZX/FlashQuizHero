@@ -10,6 +10,7 @@
 
 @interface ViewController : UIViewController
 
+-(IBAction)SubmitAnswerPressed:(id)sender;
 
 @end
 

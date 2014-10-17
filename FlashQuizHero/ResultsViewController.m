@@ -7,18 +7,29 @@
 //
 
 #import "ResultsViewController.h"
-
-@interface ResultsViewController ()
+#import "HerokuAPIRequest.h"
+@interface ResultsViewController () <HerokuDataDownloaderDelegate>
 
 @property (nonatomic, assign) float finalscore;
+
+@property (nonatomic, strong) NSMutableArray *scoreSets;
+
+@property HerokuAPIRequest *downloader;
+
+@property (nonatomic, weak) IBOutlet UILabel *finalScoreLabel;
 
 @end
 
 @implementation ResultsViewController
+@synthesize finalScoreLabel;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.scoreSets = [[NSMutableArray alloc]init];
+    self.downloader = [HerokuAPIRequest new];
+    self.downloader.delegate = self;
+    [self.downloader getScores];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -26,8 +37,18 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)loadScore:(int) score{
+- (void)loadScore:(float) score{
+    self.finalscore = score;
+    self.finalScoreLabel.text = [NSString stringWithFormat:@"Your final score is: %.02f", score];
+}
+
+#pragma mark - API Methods
+-(void)DataDownloadDidComplete:(NSArray *)resultingdata{
+    for (NSString *score in resultingdata) {
+        [self.scoreSets addObject:score];
+    }
     
+    NSLog(@"Scores: %@", self.scoreSets);
 }
 
 /*
